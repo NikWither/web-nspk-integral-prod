@@ -1,0 +1,333 @@
+﻿﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Reset CSS -->
+    <link href="http://localhost:8080/css/reset.css" rel="stylesheet">
+    <title>Вход</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="http://localhost:8080/css/register.css" rel="stylesheet">
+    <style>
+        :root {
+            --header-height: 64px;
+            --sidebar-width: 260px;
+        }
+
+        body {
+            background-color: #f6f8fb;
+        }
+
+        .app-shell {
+            display: block;
+            min-height: calc(100vh - var(--header-height));
+        }
+
+        .sidebar {
+            background-color: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 12px 32px rgba(15, 23, 42, 0.08);
+            padding: 1.5rem 1.5rem 1.5rem 0;
+            display: none;
+        }
+
+        .sidebar-handle {
+            position: fixed;
+            color: #111827;
+            top: 50%;
+            left: 0;
+            transform: translate(-60%, -50%);
+            background-color: #ffffff;
+            border: 1px solid rgba(15, 23, 42, 0.2);
+            border-radius: 0 999px 999px 0;
+            padding: 0.6rem 0.85rem 0.6rem 0.55rem;
+            display: none;
+            flex-direction: column;
+            gap: 8px;
+            align-items: center;
+            justify-content: center;
+            z-index: 1060;
+            box-shadow: 0 16px 32px rgba(15, 23, 42, 0.18);
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        .sidebar-handle svg {
+            width: 32px;
+            height: 52px;
+            display: block;
+            color: #111827;
+            transition: color 0.2s ease;
+        }
+
+
+        .sidebar-handle:active {
+            transform: translate(-30%, -50%);
+        }
+
+        .sidebar-handle:hover svg,
+        .sidebar-handle:focus svg {
+            color: #e2241b;
+        }
+
+        .sidebar-backdrop {
+            display: none;
+        }
+
+        .main-content {
+            padding: clamp(1.5rem, 5vw, 2.75rem);
+            transition: transform 0.3s ease;
+        }
+
+        .with-sidebar .app-shell {
+            display: flex;
+            align-items: flex-start;
+            gap: clamp(1.25rem, 4vw, 2.5rem);
+            padding: clamp(1.25rem, 4vw, 2.5rem);
+        }
+
+        .with-sidebar .sidebar {
+            display: block;
+            position: sticky;
+            top: calc(var(--header-height) + clamp(0.75rem, 2vw, 1.5rem));
+            height: calc(100vh - var(--header-height) - clamp(1rem, 4vw, 2rem));
+            max-height: calc(100vh - var(--header-height) - clamp(1rem, 4vw, 2rem));
+            overflow-y: auto;
+            width: var(--sidebar-width);
+            display: flex;
+            flex-direction: column;
+            scrollbar-gutter: stable;
+        }
+
+        .with-sidebar .main-content {
+            padding: 0;
+            flex: 1 1 auto;
+        }
+
+        @media (max-width: 991.98px) {
+            body {
+                background-color: #ffffff;
+            }
+
+            .with-sidebar .app-shell {
+                display: block;
+                padding: clamp(1rem, 3vw, 1.5rem);
+            }
+
+            .with-sidebar .sidebar {
+                position: fixed;
+                top: var(--header-height);
+                left: 0;
+                bottom: 0;
+                width: min(80vw, 320px);
+                max-height: none;
+                height: calc(100vh - var(--header-height));
+                border-radius: 0 18px 18px 0;
+                transform: translateX(-110%);
+                transition: transform 0.3s ease;
+                z-index: 1050;
+                box-shadow: 0 1.25rem 2.75rem rgba(15, 23, 42, 0.22);
+                overflow-y: auto;
+                display: block;
+            }
+
+            .with-sidebar .sidebar.is-open {
+                transform: translateX(0);
+            }
+
+            .with-sidebar .sidebar-backdrop {
+                position: fixed;
+                inset: var(--header-height) 0 0 0;
+                background: rgba(15, 23, 42, 0.38);
+                backdrop-filter: blur(2px);
+                display: block;
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.3s ease;
+                z-index: 1040;
+            }
+
+            .with-sidebar .sidebar-backdrop.is-visible {
+                opacity: 1;
+                pointer-events: auto;
+            }
+
+            .with-sidebar .main-content {
+                padding: 0;
+            }
+
+            .with-sidebar .sidebar-handle {
+                display: inline-flex;
+            }
+
+            body.sidebar-open {
+                overflow: hidden;
+            }
+
+            body.sidebar-open .sidebar-handle {
+                opacity: 0;
+                pointer-events: none;
+            }
+        }
+    </style>
+</head>
+<body class="">
+    ﻿<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="http://localhost:8080">Р›Р°Р±РѕСЂР°С‚РѕСЂРёСЏ РіРёРїРѕС‚РµР·</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+                <li class="nav-item">
+                    <a class="nav-link" href="http://localhost:8080">Р“Р»Р°РІРЅР°СЏ</a>
+                </li>
+                                    <li class="nav-item">
+                        <a class="nav-link active" href="http://localhost:8080/login">Р’РѕР№С‚Рё</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="http://localhost:8080/register">Р РµРіРёСЃС‚СЂР°С†РёСЏ</a>
+                    </li>
+                            </ul>
+        </div>
+    </div>
+</nav>
+
+
+    <button type="button" class="sidebar-handle d-lg-none" data-sidebar-toggle aria-label="Open sidebar">
+        <svg width="24" height="42" viewBox="0 0 24 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6 5L18 21L6 37" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </button>
+
+    <div class="app-shell">
+        <aside class="sidebar" id="appSidebar">
+                            <h5>Навигация</h5>
+<ul class="nav flex-column">
+    <li class="nav-item">
+        <a class="nav-link" href="#">Главная</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="#">Профиль</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="#">Настройки</a>
+    </li>
+</ul>                    </aside>
+
+        <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+        <main class="main-content" id="appMainContent">
+            
+                <div class="form-container">
+        <h2 class="mb-4">Вход в аккаунт</h2>
+
+        
+        <form method="POST" action="http://localhost:8080/login">
+            <input type="hidden" name="_token" value="dOBxyJACcwYDn3LRTUYQy2f6leuzrVwP6pw1ZQua" autocomplete="off">
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input
+                    type="email"
+                    class="form-control "
+                    id="email"
+                    name="email"
+                    value=""
+                    required
+                    autofocus
+                >
+                            </div>
+
+            <div class="mb-3">
+                <label for="password" class="form-label">Пароль</label>
+                <input
+                    type="password"
+                    class="form-control "
+                    id="password"
+                    name="password"
+                    required
+                >
+                            </div>
+
+            <div class="form-check mb-4">
+                <input class="form-check-input" type="checkbox" value="1" id="remember" name="remember" >
+                <label class="form-check-label" for="remember">
+                    Запомнить меня
+                </label>
+            </div>
+
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-primary">Войти</button>
+                <a href="http://localhost:8080/register" class="btn btn-outline-secondary">Создать аккаунт</a>
+            </div>
+        </form>
+    </div>
+        </main>
+    </div>
+    
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const nav = document.querySelector('.navbar');
+            if (nav) {
+                document.documentElement.style.setProperty('--header-height', `${nav.offsetHeight}px`);
+            }
+
+            if (!document.body.classList.contains('with-sidebar')) {
+                return;
+            }
+
+            const sidebar = document.getElementById('appSidebar');
+            const backdrop = document.getElementById('sidebarBackdrop');
+            const toggleElements = document.querySelectorAll('[data-sidebar-toggle]');
+
+            const closeSidebar = () => {
+                sidebar?.classList.remove('is-open');
+                backdrop?.classList.remove('is-visible');
+                document.body.classList.remove('sidebar-open');
+            };
+
+            const openSidebar = () => {
+                sidebar?.classList.add('is-open');
+                backdrop?.classList.add('is-visible');
+                document.body.classList.add('sidebar-open');
+            };
+
+            toggleElements.forEach((trigger) => {
+                trigger.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    if (sidebar?.classList.contains('is-open')) {
+                        closeSidebar();
+                    } else {
+                        openSidebar();
+                    }
+                });
+            });
+
+            backdrop?.addEventListener('click', closeSidebar);
+
+            window.addEventListener('resize', () => {
+                if (window.innerWidth >= 992) {
+                    closeSidebar();
+                }
+            });
+
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape') {
+                    closeSidebar();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+

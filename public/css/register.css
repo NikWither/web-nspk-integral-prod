@@ -1,0 +1,73 @@
+.form-container {
+    margin: 20px auto;
+    width: 400px;
+    padding: 30px;
+    border-radius: 16px;
+    background-color: white;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #333;
+}
+
+.form-label {
+    color: #333;
+    font-weight: 500;
+}
+
+.form-control {
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+.spacer {
+    gap: 20px;
+}
+
+.form-control:focus {
+    border-color: #e93d3d;
+    box-shadow: 0 0 0 0.2rem rgba(233, 61, 61, 0.25);
+}
+
+.btn-primary {
+    background-color: #e93d3d;
+    border-color: #e93d3d;
+    border-radius: 8px;
+    font-weight: 600;
+    padding: 10px;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.btn-primary:hover {
+    background-color: #c72a2a;
+    border-color: #c72a2a;
+}
+
+/* Стили для группы кнопок-переключателей */
+.btn-group-toggle .btn {
+    border-radius: 8px;
+    margin: 0;
+    flex: 1;
+    text-align: center;
+    border: 2px solid #ddd;
+    color: #333;
+    transition: all 0.3s ease;
+}
+
+.btn-group-toggle .btn.active {
+    background-color: #e93d3d;
+    color: white;
+    border-color: #e93d3d;
+    font-weight: 500;
+}
+
+.btn-group-toggle {
+    display: flex;
+    border-radius: 8px;
+    overflow: hidden;
+    border-radius: 8px;
+}
