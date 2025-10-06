@@ -1,4 +1,4 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 
 @section('title', 'Регистрация')
 
@@ -39,63 +39,7 @@
                 @enderror
             </div>
 
-            <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
-                <input
-                    type="email"
-                    class="form-control @error('email') is-invalid @enderror"
-                    id="email"
-                    name="email"
-                    value="{{ old('email') }}"
-                    required
-                >
-                @error('email')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
-            </div>
-
-            <div class="mb-3">
-                <label for="password" class="form-label">Пароль</label>
-                <input
-                    type="password"
-                    class="form-control @error('password') is-invalid @enderror"
-                    id="password"
-                    name="password"
-                    required
-                >
-                @error('password')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
-            </div>
-
-            <div class="mb-3">
-                <label for="password_confirmation" class="form-label">Подтверждение пароля</label>
-                <input
-                    type="password"
-                    class="form-control"
-                    id="password_confirmation"
-                    name="password_confirmation"
-                    required
-                >
-            </div>
-
-            @php($selectedType = old('type_account', 'government'))
-            <div class="mb-4">
-                <span class="form-label d-block mb-2">Тип аккаунта</span>
-                <div class="btn-group" role="group" aria-label="Тип аккаунта">
-                    <input type="radio" class="btn-check" name="type_account" id="type-government" value="government" autocomplete="off" {{ $selectedType === 'government' ? 'checked' : '' }}>
-                    <label class="btn btn-outline-secondary" for="type-government">Госорган</label>
-
-                    <input type="radio" class="btn-check" name="type_account" id="type-business" value="business" autocomplete="off" {{ $selectedType === 'business' ? 'checked' : '' }}>
-                    <label class="btn btn-outline-secondary" for="type-business">Бизнес</label>
-
-                    <input type="radio" class="btn-check" name="type_account" id="type-bank" value="bank" autocomplete="off" {{ $selectedType === 'bank' ? 'checked' : '' }}>
-                    <label class="btn btn-outline-secondary" for="type-bank">Банк</label>
-                </div>
-                @error('type_account')
-                    <div class="text-danger small mt-2">{{ $message }}</div>
-                @enderror
-            </div>
+            <p class="text-muted small mb-4">Для демо-версии достаточно указать ваше имя — мы остальное сделаем автоматически.</p>
 
             <div class="d-flex gap-2">
                 <button type="submit" class="btn btn-primary">Зарегистрироваться</button>

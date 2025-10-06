@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class RegisterController extends Controller
 {
@@ -17,24 +17,35 @@ class RegisterController extends Controller
 
     public function register(Request $request)
     {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'type_account' => ['required', 'in:government,bank,business'],
+        $validated = $request->validate([
+            'name' => ['required', 'string', 'max:255', 'unique:users,name'],
         ]);
 
+        $baseSlug = Str::slug($validated['name']);
+
+        if ($baseSlug === '') {
+            $baseSlug = 'user';
+        }
+
+        $email = $baseSlug.'@demo.local';
+        $suffix = 1;
+
+        while (User::where('email', $email)->exists()) {
+            $email = $baseSlug.$suffix.'@demo.local';
+            $suffix++;
+        }
+
         $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'type_account' => $request->type_account,
+            'name' => $validated['name'],
+            'email' => $email,
+            'password' => Str::random(40),
+            'type_account' => 'business',
         ]);
 
         Auth::login($user);
 
         $request->session()->regenerate();
 
-        return redirect()->route('home')->with('status', 'Регистрация прошла успешно!');
+        return redirect()->route('home')->with('status', 'Demo registration complete!');
     }
 }

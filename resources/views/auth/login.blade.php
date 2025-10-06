@@ -1,4 +1,4 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 
 @section('title', 'Вход')
 
@@ -8,7 +8,7 @@
 
 @section('content')
     <div class="form-container">
-        <h2 class="mb-4">Вход в аккаунт</h2>
+        <h2 class="mb-4">Вход в систему</h2>
 
         @if ($errors->any())
             <div class="alert alert-danger">
@@ -23,47 +23,25 @@
         <form method="POST" action="{{ route('login') }}">
             @csrf
 
-            <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
+            <div class="mb-4">
+                <label for="name" class="form-label">Имя</label>
                 <input
-                    type="email"
-                    class="form-control @error('email') is-invalid @enderror"
-                    id="email"
-                    name="email"
-                    value="{{ old('email') }}"
+                    type="text"
+                    class="form-control @error('name') is-invalid @enderror"
+                    id="name"
+                    name="name"
+                    value="{{ old('name') }}"
                     required
                     autofocus
                 >
-                @error('email')
+                @error('name')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
 
-            <div class="mb-3">
-                <label for="password" class="form-label">Пароль</label>
-                <input
-                    type="password"
-                    class="form-control @error('password') is-invalid @enderror"
-                    id="password"
-                    name="password"
-                    required
-                >
-                @error('password')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
-            </div>
-
-            <div class="form-check mb-4">
-                <input class="form-check-input" type="checkbox" value="1" id="remember" name="remember" {{ old('remember') ? 'checked' : '' }}>
-                <label class="form-check-label" for="remember">
-                    Запомнить меня
-                </label>
-            </div>
-
-            <div class="d-flex gap-2">
-                <button type="submit" class="btn btn-primary">Войти</button>
-                <a href="{{ route('register') }}" class="btn btn-outline-secondary">Создать аккаунт</a>
-            </div>
+            <button type="submit" class="btn btn-primary w-100">Войти</button>
         </form>
+
+        <p class="text-muted small mt-4 mb-0">Нет аккаунта? <a class="text-decoration-none" href="{{ route('register') }}">Зарегистрируйтесь за минуту</a>.</p>
     </div>
 @endsection

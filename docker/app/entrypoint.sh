@@ -15,6 +15,7 @@ ensure_dir() {
 
 ensure_dir "$APP_ROOT/storage/framework/cache/data"
 ensure_dir "$APP_ROOT/storage/logs"
+ensure_dir "$APP_ROOT/storage/app/public"
 ensure_dir "$APP_ROOT/bootstrap/cache"
 
 if [ "${SKIP_CHOWN:-false}" != "true" ] && [ "${APP_ENV}" != "local" ]; then
@@ -28,6 +29,22 @@ fi
 
 if [ "${SKIP_CHOWN:-false}" != "true" ] && [ "${APP_ENV}" != "local" ]; then
     chown "$APP_USER":"$APP_GROUP" "$APP_ROOT/storage/logs/laravel.log"
+fi
+
+if [ "${DB_CONNECTION}" = "sqlite" ]; then
+    SQLITE_PATH=${DB_DATABASE:-$APP_ROOT/database/database.sqlite}
+    case "$SQLITE_PATH" in
+        /*) ;;
+        *) SQLITE_PATH="$APP_ROOT/$SQLITE_PATH" ;;
+    esac
+    ensure_dir "$(dirname "$SQLITE_PATH")"
+    if [ ! -f "$SQLITE_PATH" ]; then
+        log "Creating sqlite database at $SQLITE_PATH"
+        touch "$SQLITE_PATH"
+    fi
+    if [ "${SKIP_CHOWN:-false}" != "true" ] && [ "${APP_ENV}" != "local" ]; then
+        chown "$APP_USER":"$APP_GROUP" "$SQLITE_PATH"
+    fi
 fi
 
 if [ -f "$APP_ROOT/artisan" ]; then

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,21 +16,24 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-        $credentials = $request->validate([
-            'email' => ['required', 'string', 'email'],
-            'password' => ['required', 'string'],
+        $validated = $request->validate([
+            'name' => ['required', 'string'],
         ]);
 
-        if (Auth::attempt($credentials, $request->boolean('remember'))) {
-            $request->session()->regenerate();
+        $user = User::where('name', $validated['name'])->first();
 
-            return redirect()->intended(route('home'))
-                ->with('status', 'Рады снова видеть вас!');
+        if (! $user) {
+            return back()->withErrors([
+                'name' => 'User not found.',
+            ])->onlyInput('name');
         }
 
-        return back()->withErrors([
-            'email' => 'Неверный email или пароль.',
-        ])->onlyInput('email');
+        Auth::login($user);
+
+        $request->session()->regenerate();
+
+        return redirect()->intended(route('home'))
+            ->with('status', 'Welcome back!');
     }
 
     public function logout(Request $request)
@@ -39,6 +43,6 @@ class LoginController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->route('home')->with('status', 'Вы вышли из системы.');
+        return redirect()->route('home')->with('status', 'See you soon!');
     }
 }

@@ -71,7 +71,7 @@
                 <p class="info__suptitle">Фокус на реальных транзакциях, готовых к анализу для государства, банков и бизнеса.</p>
             </div>
             <div class="banner__image">
-                <img src="{{ asset('img/data_img.jpg') }}" alt="Цифровые сервисы">
+                <img src="{{ asset('img/data_image.png') }}" alt="Цифровые сервисы">
             </div>
         </div>
     </div>

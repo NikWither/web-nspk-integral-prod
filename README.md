@@ -59,3 +59,27 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Docker demo stack
+
+- Ensure `database/database.sqlite` exists (create an empty file if it does not) and keep `DB_CONNECTION=sqlite` inside your `.env`.
+- Build and start the demo stack locally:
+
+```
+docker compose -f docker-compose.demo.yml up --build
+```
+
+- The application will be available at `http://localhost:8080`.
+- Run artisan commands inside the PHP-FPM container when needed:
+
+```
+docker compose -f docker-compose.demo.yml exec app php artisan migrate
+```
+
+- Stop and clean the stack:
+
+```
+docker compose -f docker-compose.demo.yml down
+```
+
+- To publish pre-built images set `APP_IMAGE`/`WEB_IMAGE` and run `docker compose -f docker-compose.demo.yml build`.
+
